@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Find partnership brands that resonate with your audience, with evidence from Qloo aggregate taste signals.">
+  <title>BrandMatch — Audience-led partnerships</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="BrandMatch home">
+        <span class="brand-mark"><span></span><span></span><span></span><span></span></span>
+        <span>brandmatch</span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <button class="nav-item active" type="button"><span class="nav-icon">✳</span> Discover</button>
+      <button class="nav-item" type="button" id="historyNav"><span class="nav-icon">◷</span> Saved discoveries <span class="nav-count" id="historyCount">0</span></button>
+      <div class="sidebar-bottom">
+        <div class="privacy-card">
+          <span class="privacy-icon">⌁</span>
+          <strong>Built on real signals</strong>
+          <p>Qloo insights describe aggregate affinities. BrandMatch never guesses what an individual likes.</p>
+        </div>
+        <div class="profile-row"><div class="avatar">BM</div><div><strong>BrandMatch Studio</strong><small>Local workspace</small></div><span class="more">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>Workspace</span><i>/</i><strong>Discover</strong></div>
+        <div class="topbar-right"><div class="live-date"><span>TODAY · INDIA</span><strong id="liveDate">Loading…</strong></div><span class="top-divider"></span><span class="secure-label"><span class="secure-dot"></span> Private workspace</span><span class="top-divider"></span><button class="help-button" id="helpButton" type="button" aria-label="How BrandMatch works">?</button></div>
+      </header>
+
+      <div class="page-wrap">
+        <section class="intro">
+          <div class="eyebrow"><span class="eyebrow-star">✳</span> TASTE-POWERED PARTNERSHIPS</div>
+          <h1>Find your audience’s<br><em>next favorite</em> brand.</h1>
+          <p class="intro-copy">Move beyond gut feeling. Start with the cultural signals your audience already loves, then explore brands with a clear evidence trail.</p>
+          <div class="proof-points"><span><b>01</b> Start with audience signals</span><span><b>02</b> Explore Qloo affinities</span><span><b>03</b> See the evidence</span></div>
+        </section>
+
+        <section class="trend-section">
+          <div class="trend-panel">
+            <div class="trend-intro">
+              <div class="trend-badge"><span class="pulse-dot"></span> REAL QLOO TRENDS</div>
+              <h2>What’s moving<br><em>right now?</em></h2>
+              <p>Explore real Qloo trend signals for public cultural entities over a rolling date range. This is observed aggregate interest, not an individual prediction.</p>
+              <div class="trend-footnote"><span>↗</span> Date window updates automatically each day</div>
+            </div>
+            <div class="trend-builder">
+              <form id="trendForm">
+                <label class="field-label" for="trendEntityInput">Track cultural entities <span class="optional">UP TO 5</span></label>
+                <input id="trendEntityInput" maxlength="800" placeholder="e.g. Patagonia, Nike" required>
+                <p class="trend-input-hint">Separate multiple entities with commas. Use public names, not customer data.</p>
+                <div class="trend-controls">
+                  <div class="field-column"><label class="field-label" for="trendType">Category</label><div class="select-wrap"><select id="trendType"><option value="brand" selected>Brands</option><option value="artist">Artists</option><option value="book">Books</option><option value="movie">Movies</option><option value="place">Places</option><option value="podcast">Podcasts</option><option value="tv_show">TV shows</option><option value="videogame">Video games</option></select><span>⌄</span></div></div>
+                  <div class="field-column"><label class="field-label" for="trendDays">Time range</label><div class="select-wrap"><select id="trendDays"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option></select><span>⌄</span></div></div>
+                </div>
+                <div class="trend-date-range"><span class="calendar-icon">▦</span><span>Qloo trend period</span><strong id="trendRange">Calculating…</strong></div>
+                <button class="trend-button" id="trendButton" type="submit"><span>Load live trend data</span><span>↗</span></button>
+                <p class="trend-setup-note">Live results need your event credential set up privately with <code>qloo setup --qloo</code>.</p>
+              </form>
+            </div>
+          </div>
+          <div class="trend-output" id="trendOutput" hidden>
+            <div class="trend-output-header"><div><div class="step-label">QLOO TREND RESULT</div><h3 id="trendResultTitle">Observed interest</h3><p id="trendResultMeta"></p></div><span class="live-result-pill"><span class="pulse-dot"></span> LIVE RESULT</span></div>
+            <div class="result-summary" id="trendSummary" hidden></div>
+            <div class="trend-result-body" id="trendResultBody"></div>
+            <details class="raw-details"><summary>View full Qloo trend payload and provenance</summary><pre id="trendRawResponse"></pre></details>
+            <p class="result-disclaimer">Qloo trend values describe aggregate observed signals over the selected period. They don’t establish a cause or predict any individual’s future behavior.</p>
+          </div>
+        </section>
+
+        <section class="workspace-grid">
+          <div class="builder-card">
+            <div class="card-heading"><div><span class="step-label">YOUR AUDIENCE</span><h2>Set the starting point</h2></div><span class="step-number">01</span></div>
+            <p class="section-help">Use public cultural signals that represent the audience as a group. Don’t enter customer names or personal data.</p>
+            <form id="discoveryForm">
+              <label class="field-label" for="audienceName">Audience name <span class="optional">PRIVATE LABEL</span></label>
+              <input id="audienceName" name="audienceName" maxlength="100" placeholder="e.g. Weekend design explorers" required>
+
+              <div class="signals-label-row"><label class="field-label" for="signalInput">Cultural signals</label><span class="field-hint">Brands, artists, films, places…</span></div>
+              <div class="signal-entry" id="signalEntry">
+                <div class="signal-chips" id="signalChips" aria-live="polite"></div>
+                <input id="signalInput" autocomplete="off" placeholder="Type a signal and press Enter" aria-label="Add an audience signal">
+                <button class="add-signal" id="addSignal" type="button" aria-label="Add signal">+</button>
+              </div>
+              <div class="suggestions"><span>TRY</span><button type="button" data-suggestion="Patagonia">Patagonia</button><button type="button" data-suggestion="Studio Ghibli">Studio Ghibli</button><button type="button" data-suggestion="Kinfolk">Kinfolk</button></div>
+              <div class="signals-note"><span>ⓘ</span> Choose well-known cultural entities. The Qloo harness resolves and validates them before use.</div>
+
+              <div class="form-rule"></div>
+              <div class="field-row">
+                <div class="field-column"><label class="field-label" for="targetType">Find affinities for</label><div class="select-wrap"><select id="targetType" name="targetType"><option value="brand" selected>Brands</option><option value="place">Places</option><option value="artist">Artists</option><option value="movie">Movies</option><option value="book">Books</option><option value="podcast">Podcasts</option><option value="tv_show">TV shows</option><option value="videogame">Video games</option></select><span>⌄</span></div></div>
+                <div class="field-column"><span class="field-label">Result quality</span><div class="quality-option"><span class="quality-icon">✦</span><div><strong>Evidence included</strong><small>Qloo explanation when available</small></div><span class="check">✓</span></div></div>
+              </div>
+              <button class="submit-button" id="submitButton" type="submit"><span>Discover audience affinities</span><span class="button-arrow">↗</span></button>
+              <p class="submit-caption"><span class="lock-icon">▣</span> Your Qloo credential stays on this device</p>
+            </form>
+          </div>
+
+          <aside class="side-column">
+            <div class="how-card">
+              <div class="how-icon">✳</div><div class="side-eyebrow">THE BRANDMATCH METHOD</div><h3>From signals<br>to strategy.</h3>
+              <div class="method-step"><span>1</span><p><strong>Anchor in taste</strong><small>Start with recognizable, public cultural entities.</small></p></div>
+              <div class="method-step"><span>2</span><p><strong>Connect the dots</strong><small>Qloo returns aggregate affinities across categories.</small></p></div>
+              <div class="method-step"><span>3</span><p><strong>Understand the why</strong><small>Review returned explanations and source details.</small></p></div>
+              <div class="method-footer"><span class="mini-check">✓</span> Grounded in Qloo, never invented</div>
+            </div>
+            <div class="qloo-card"><span class="qloo-symbol">q</span><div><strong>Powered by Qloo</strong><p>Cultural intelligence for the real world.</p></div><span class="external-arrow">↗</span></div>
+          </aside>
+        </section>
+
+        <section class="results-section" id="resultsSection" hidden>
+          <div class="results-header"><div><div class="step-label">THE DISCOVERY</div><h2 id="resultsTitle">Audience affinities</h2><p id="resultsSubtitle"></p></div><button type="button" class="text-button" id="newDiscovery">＋ New discovery</button></div>
+          <div id="resultSummary" class="result-summary" hidden></div>
+          <div id="resultCards" class="result-cards"></div>
+          <details class="raw-details"><summary>View the full Qloo response and provenance</summary><pre id="rawResponse"></pre></details>
+          <p class="result-disclaimer">Qloo reports aggregate cultural affinities. These results do not identify individual preferences or predict any person’s behavior.</p>
+        </section>
+
+        <section class="history-section" id="historySection" hidden>
+          <div class="results-header"><div><div class="step-label">YOUR WORKSPACE</div><h2>Saved discoveries</h2><p>Recent Qloo-backed audience explorations, stored on this device.</p></div></div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+
+        <footer><span>BRANDMATCH <i>·</i> QLOO HACKATHON PROJECT</span><span>Made for smarter connections <b>✳</b></span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="helpDialog" class="help-dialog"><button class="dialog-close" id="closeHelp" aria-label="Close" type="button">×</button><div class="side-eyebrow">HOW TO READ BRANDMATCH</div><h2>Evidence first.<br><em>Interpretation second.</em></h2><p>BrandMatch sends your aggregate cultural signals to Qloo through its official, validated <code>recommend</code> workflow. Returned affinities and explanations are shown as Qloo provides them, with the full response available for review.</p><p>Use public entities to represent a group. Never submit names, emails, account identifiers, precise location histories, or other personal data. Affinity is not causation, an individual prediction, or proof of audience identity.</p><p>Live discovery requires the event-issued Qloo credential configured privately with <code>qloo setup --qloo</code>.</p></dialog>
+</body>
+</html>

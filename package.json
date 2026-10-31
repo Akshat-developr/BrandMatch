@@ -1,0 +1,14 @@
+{
+  "name": "brandmatch-qloo-hackathon",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Evidence-led audience and brand discovery powered by Qloo's public hackathon harness.",
+  "engines": { "node": ">=22.19.0" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js",
+    "check": "node --check server.js && node --check public/app.js",
+    "test": "node --test"
+  }
+}
